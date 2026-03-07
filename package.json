@@ -12,5 +12,9 @@
   "description": "",
   "dependencies": {
     "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.4",
+    "globals": "^17.4.0"
   }
 }
