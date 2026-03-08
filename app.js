@@ -1,22 +1,27 @@
-function isNonTrivialRotation(s1, s2) {
-  if (s1 === s2) return 0;
-  const s1a = s1.split("");
-  const s2a = s2.split("");
+function binarySearch(nums, target) {
+  let low = 0;
+  let high = nums.length - 1;
+  let mid = Math.floor((low + high) / 2);
 
-  for (let i = 0; i < s1a.length; i++) {
-    console.log(s1a, " ", s2a);
-    if (s1a.toString() === s2a.toString()) return 1;
-    const last = s1a.pop();
-    s1a.unshift(last);
+  let item = nums[mid];
+
+  while (item !== target) {
+    console.log({ low, high, mid, item });
+    if (target < item) {
+      low = 0;
+      high = mid;
+    } else {
+      low = mid;
+      high = high;
+    }
+    mid = Math.floor((low + high) / 2);
+    item = nums[mid];
   }
-  return 0;
+
+  return -1;
 }
+const nums = [2, 4, 6, 8, 10, 12, 14, 16];
+const target = 16;
 
-// const s1 = "abcde";
-// const s2 = "cdeab";
-
-const s1 = "a";
-const s2 = "a";
-
-const result = isNonTrivialRotation(s1, s2);
+const result = binarySearch(nums, target);
 console.log(result);
