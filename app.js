@@ -1,52 +1,34 @@
-function mergeHighDefinitionIntervals(intervals) {
-  if (intervals.length === 0) return [];
-  if (intervals.length === 1) return intervals;
+function findFirstOccurrence(nums, target) {
+  const length = nums.length;
+  if (length === 0) return -1;
 
-  const intervalsOrdered = intervals.sort((a, b) => a[0] - b[0]);
+  let low = 0;
+  let high = length - 1;
+  let mid = Math.floor((low + high) / 2);
 
-  const mergeList = [intervalsOrdered[0]];
+  let item = nums[mid];
 
-  for (let i = 1; i < intervalsOrdered.length; i++) {
-    const lastItem = mergeList.pop();
-    const [first, second] = lastItem;
-    const [third, four] = intervalsOrdered[i];
+  let i = 0;
 
-    if (third <= second) {
-      const max = Math.max(first, second, third, four);
-      const min = Math.min(first, second, third, four);
+  if (target === nums[0]) return 0;
 
-      const mergedItem = [min, max];
-      mergeList.push(mergedItem);
+  while (i < length) {
+    if (target === item && item > nums[mid - 1]) {
+      return mid;
     } else {
-      mergeList.push(lastItem);
-      mergeList.push(intervalsOrdered[i]);
+      if (low === mid && target === nums[high]) return high;
     }
+    target <= item ? (high = mid) : (low = mid);
+    mid = Math.floor((low + high) / 2);
+
+    item = nums[mid];
+    i++;
   }
-  return mergeList;
+
+  return -1;
 }
 
-const intervals = [
-  [1, 3],
-  [2, 6],
-  [8, 10],
-  [15, 18],
-];
+const nums = [1, 1, 1, 1, 1, 1];
+const target = 1;
 
-// const intervals = [
-//   [1, 3],
-//   [15, 18],
-//   [2, 6],
-//   [14, 22],
-//   [8, 10],
-//   [16, 21],
-// ];
-
-// const intervals = [
-//   [4, 3],
-//   [1, 3],
-//   [1, 3],
-//   [1, 3],
-//   [1, 3],
-//   [1, 3],
-// ];
-console.log(mergeHighDefinitionIntervals(intervals));
+console.log(findFirstOccurrence(nums, target));
